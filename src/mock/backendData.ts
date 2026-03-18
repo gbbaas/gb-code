@@ -3204,8 +3204,8 @@ console.log(!(5 > 3))       // false`
 
 // ========== 8门课程定义 ==========
 
-// 语言基础课程
-const languageBasicCourse: ProgrammingCourse = {
+// 语言基础课程（导出供前端复用）
+export const languageBasicCourse: ProgrammingCourse = {
   id: 'lang-basic',
   title: '语言基础',
   icon: '📖',
@@ -3297,6 +3297,14 @@ const webBasicCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: 'HTTP基础',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-http-intro',
       title: 'HTTP协议',
@@ -3316,6 +3324,14 @@ const dbBasicCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: 'SQL基础',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-sql-intro',
       title: 'SQL入门',
@@ -3335,6 +3351,14 @@ const projectBasicCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: '商城项目',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-project-intro',
       title: '项目介绍',
@@ -3354,6 +3378,14 @@ const languageAdvancedCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: '进阶特性',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-advanced-intro',
       title: '进阶概述',
@@ -3372,6 +3404,14 @@ const webAdvancedCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: '框架入门',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-framework-intro',
       title: '框架概述',
@@ -3390,6 +3430,14 @@ const dbAdvancedCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: '性能优化',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-db-optimize',
       title: '索引优化',
@@ -3408,6 +3456,14 @@ const projectAdvancedCourse: ProgrammingCourse = {
   chapters: [{
     id: 'ch1',
     title: '分布式系统',
+    video: {
+      java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      python: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      go: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      c: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    },
     points: [{
       id: 'kp-distributed-intro',
       title: '分布式入门',
@@ -3418,63 +3474,39 @@ const projectAdvancedCourse: ProgrammingCourse = {
   }]
 }
 
-// ========== 语言课程组 ==========
+// ========== 后端课程组（8门课程） ==========
 
-export const languageCourseGroups: LanguageCourseGroup[] = [
+// 后端课程（按语言分组）
+export const backendCourseGroups: LanguageCourseGroup[] = [
   {
-    language: 'java',
-    name: 'Java',
+    id: 'java',
+    title: 'Java',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   },
   {
-    language: 'javascript',
-    name: 'JavaScript',
+    id: 'javascript',
+    title: 'JavaScript',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   },
   {
-    language: 'python',
-    name: 'Python',
+    id: 'python',
+    title: 'Python',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   },
   {
-    language: 'go',
-    name: 'Go',
+    id: 'go',
+    title: 'Go',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   },
   {
-    language: 'c',
-    name: 'C',
+    id: 'c',
+    title: 'C',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   },
   {
-    language: 'csharp',
-    name: 'C#',
+    id: 'csharp',
+    title: 'C#',
     courses: [languageBasicCourse, webBasicCourse, dbBasicCourse, projectBasicCourse, languageAdvancedCourse, webAdvancedCourse, dbAdvancedCourse, projectAdvancedCourse]
   }
 ]
 
-// 获取所有知识点（用于编程总览页）
-export function getAllKnowledgePoints(): KnowledgePoint[] {
-  const points: KnowledgePoint[] = []
-  const seen = new Set<string>()
-  
-  for (const group of languageCourseGroups) {
-    for (const course of group.courses) {
-      for (const chapter of course.chapters) {
-        for (const point of chapter.points) {
-          if (!seen.has(point.id)) {
-            seen.add(point.id)
-            points.push(point)
-          }
-        }
-      }
-    }
-  }
-  
-  return points
-}
-
-// 获取语言课程组
-export function getLanguageGroup(language: string): LanguageCourseGroup | undefined {
-  return languageCourseGroups.find(g => g.language === language)
-}

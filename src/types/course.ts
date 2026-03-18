@@ -62,10 +62,16 @@ export interface NavItem {
   children?: NavItem[]  // 子导航
 }
 
-// ========== 编程知识点数据结构（多语言复用） ==========
+// ========== 编程知识点数据结构（多语言/多技术栈复用） ==========
 
-// 支持的编程语言（含AI）
+// 支持的后端编程语言（含AI）
 export type ProgrammingLanguage = 'java' | 'python' | 'go' | 'javascript' | 'c' | 'csharp' | 'ai'
+
+// 支持的前端技术栈
+export type FrontendTech = 'html' | 'vue' | 'react' | 'android' | 'ios' | 'harmonyos' | 'uniapp' | 'miniprogram' | 'electron' | 'qt'
+
+// 代码实现类型（后端语言 + 前端技术栈）
+export type CodeImplKey = ProgrammingLanguage | FrontendTech
 
 // 代码块
 export interface CodeBlock {
@@ -75,20 +81,20 @@ export interface CodeBlock {
   prompt?: string              // AI提示词（仅ai语言使用）
 }
 
-// 知识点（支持多语言代码）
+// 知识点（支持多语言/多技术栈代码）
 export interface KnowledgePoint {
   id: string
   title: string
-  video?: Partial<Record<ProgrammingLanguage, string>>  // 多语言视频
+  video?: Partial<Record<CodeImplKey, string>>  // 多语言/多技术栈视频
   blocks: Block[]                           // 通用内容：text/list/tip/table/img/video
-  codeImpl?: Partial<Record<ProgrammingLanguage, CodeBlock[]>>  // 多语言代码实现
+  codeImpl?: Partial<Record<CodeImplKey, CodeBlock[]>>  // 多语言/多技术栈代码实现
 }
 
 // 编程章节
 export interface ProgrammingChapter {
   id: string
   title: string
-  video?: Partial<Record<ProgrammingLanguage, string>>  // 多语言视频
+  video?: Partial<Record<CodeImplKey, string>>  // 多语言/多技术栈视频
   points: KnowledgePoint[]
 }
 
@@ -100,9 +106,9 @@ export interface ProgrammingCourse {
   chapters: ProgrammingChapter[]
 }
 
-// 语言课程组（8个课程）
+// 语言课程组（后端/前端课程）
 export interface LanguageCourseGroup {
-  language: ProgrammingLanguage
-  name: string                              // 显示名称：Java/Python/Go/JavaScript
-  courses: ProgrammingCourse[]              // 8个课程
+  id: string
+  title: string                             // 显示名称
+  courses: ProgrammingCourse[]              // 课程列表
 }

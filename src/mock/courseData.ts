@@ -3,16 +3,33 @@ import type { Course, NavItem } from '@/types/course'
 // 顶部导航
 export const navItems: NavItem[] = [
   { 
-    id: 'programming', 
-    name: '编程', 
-    path: '/programming',
+    id: 'frontend', 
+    name: '前端', 
+    path: '/learn?lang=frontend',
     children: [
-      { id: 'prog-java', name: 'Java', path: '/programming?lang=java' },
-      { id: 'prog-js', name: 'JavaScript', path: '/programming?lang=javascript' },
-      { id: 'prog-python', name: 'Python', path: '/programming?lang=python' },
-      { id: 'prog-go', name: 'Go', path: '/programming?lang=go' },
-      { id: 'prog-c', name: 'C', path: '/programming?lang=c' },
-      { id: 'prog-csharp', name: 'C#', path: '/programming?lang=csharp' },
+      { id: 'fe-html', name: 'HTML', path: '/learn?lang=html' },
+      { id: 'fe-vue', name: 'Vue', path: '/learn?lang=vue' },
+      { id: 'fe-react', name: 'React', path: '/learn?lang=react' },
+      { id: 'fe-android', name: '安卓', path: '/learn?lang=android' },
+      { id: 'fe-ios', name: 'iOS', path: '/learn?lang=ios' },
+      { id: 'fe-harmonyos', name: '鸿蒙', path: '/learn?lang=harmonyos' },
+      { id: 'fe-uniapp', name: 'UniApp', path: '/learn?lang=uniapp' },
+      { id: 'fe-miniprogram', name: '小程序', path: '/learn?lang=miniprogram' },
+      { id: 'fe-electron', name: 'Electron', path: '/learn?lang=electron' },
+      { id: 'fe-qt', name: 'Qt', path: '/learn?lang=qt' },
+    ]
+  },
+  { 
+    id: 'backend', 
+    name: '后端', 
+    path: '/learn?lang=backend',
+    children: [
+      { id: 'be-java', name: 'Java', path: '/learn?lang=java' },
+      { id: 'be-js', name: 'JavaScript', path: '/learn?lang=javascript' },
+      { id: 'be-python', name: 'Python', path: '/learn?lang=python' },
+      { id: 'be-go', name: 'Go', path: '/learn?lang=go' },
+      { id: 'be-c', name: 'C', path: '/learn?lang=c' },
+      { id: 'be-csharp', name: 'C#', path: '/learn?lang=csharp' },
     ]
   },
   { id: 'java', name: 'Java', path: '/learn/java-basic' },
