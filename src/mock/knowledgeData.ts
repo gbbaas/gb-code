@@ -1837,6 +1837,8 @@ const kpClassObject: KnowledgePoint = {
   title: '类和对象',
   video: {
     java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    python: 'https://www.w3schools.com/html/mov_bbb.mp4',
     go: 'https://www.w3schools.com/html/mov_bbb.mp4',
     c: 'https://www.w3schools.com/html/mov_bbb.mp4',
     csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
@@ -1868,6 +1870,44 @@ user.vip = true;
 IO.println(user.name);  // 张三
 IO.println(user.age);   // 18
 IO.println(user.vip);   // true`
+    }],
+    javascript: [{
+      id: 'c1',
+      filename: 'main.js',
+      code: `// 定义类语法：class 类名 { constructor() { this.属性 = 值 } }
+class User {
+    constructor(name, age, vip) {
+        this.name = name   // 属性：名字
+        this.age = age     // 属性：年龄
+        this.vip = vip     // 属性：是否VIP
+    }
+}
+
+// 创建对象语法：new 类名(参数)
+let user = new User("张三", 18, true)
+
+// 取值
+console.log(user.name)  // 张三
+console.log(user.age)   // 18
+console.log(user.vip)   // true`
+    }],
+    python: [{
+      id: 'c1',
+      filename: 'main.py',
+      code: `# 定义类语法：class 类名: def __init__(self, 属性): self.属性 = 属性
+class User:
+    def __init__(self, name, age, vip):
+        self.name = name   # 属性：名字
+        self.age = age     # 属性：年龄
+        self.vip = vip     # 属性：是否VIP
+
+# 创建对象语法：类名(参数)
+user = User("张三", 18, True)
+
+# 取值
+print(user.name)  # 张三
+print(user.age)   # 18
+print(user.vip)   # True`
     }],
     go: [{
       id: 'c1',
@@ -1974,6 +2014,7 @@ const kpOOPClassObject: KnowledgePoint = {
   title: '类和对象',
   video: {
     java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
     python: 'https://www.w3schools.com/html/mov_bbb.mp4',
     go: 'https://www.w3schools.com/html/mov_bbb.mp4',
     c: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -2016,6 +2057,37 @@ void main() {
     IO.println("支付状态：" + order.status);
     IO.println("创建时间：" + order.createdAt);
 }`
+    }],
+    javascript: [{
+      id: 'c1',
+      filename: 'main.js',
+      code: `//语法：class 类名 { 属性名 }  对象：let 变量名 = new 类名(); 变量名.属性名 = 值;
+class Order {
+    userName
+    spuName
+    spuPrice
+    spuCount
+    total
+    status
+    createdAt
+}
+
+let order = new Order()
+order.userName = "张三"
+order.spuName = "牛奶"
+order.spuPrice = 2.5
+order.spuCount = 3
+order.total = 7.5
+order.status = true
+order.createdAt = "2024-01-01 12:30:00"
+
+console.log("用户名称：" + order.userName)
+console.log("商品名称：" + order.spuName)
+console.log("商品单价：" + order.spuPrice + " 元")
+console.log("购买数量：" + order.spuCount)
+console.log("订单总价：" + order.total + " 元")
+console.log("支付状态：" + order.status)
+console.log("创建时间：" + order.createdAt)`
     }],
     python: [{
       id: 'c1',
@@ -2154,6 +2226,7 @@ const kpOOPMethod: KnowledgePoint = {
   title: '方法',
   video: {
     java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
     python: 'https://www.w3schools.com/html/mov_bbb.mp4',
     go: 'https://www.w3schools.com/html/mov_bbb.mp4',
     c: 'https://www.w3schools.com/html/mov_bbb.mp4',
@@ -2193,6 +2266,26 @@ void main() {
     order.createdAt = "2024-01-01 12:30:00";
     order.insert();
 }`
+    }],
+    javascript: [{
+      id: 'c1',
+      filename: 'main.js',
+      code: `//语法：方法名() { 代码 }  调用：对象.方法名();
+class Order {
+    insert() {
+        console.log("保存订单：" + this.userName + ", " + this.spuName + ", 总价" + this.total + "元")
+    }
+}
+
+let order = new Order()
+order.userName = "张三"
+order.spuName = "牛奶"
+order.spuPrice = 2.5
+order.spuCount = 3
+order.total = 7.5
+order.status = true
+order.createdAt = "2024-01-01 12:30:00"
+order.insert()`
     }],
     python: [{
       id: 'c1',
@@ -2304,6 +2397,7 @@ const kpOOPThis: KnowledgePoint = {
   title: 'this关键字',
   video: {
     java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
     python: 'https://www.w3schools.com/html/mov_bbb.mp4',
     go: 'https://www.w3schools.com/html/mov_bbb.mp4',
     csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
@@ -2341,6 +2435,26 @@ void main() {
     Order order = new Order();
     order.insert("张三", "牛奶", 2.5, 3, 7.5, true, "2024-01-01 12:30:00");
 }`
+    }],
+    javascript: [{
+      id: 'c1',
+      filename: 'main.js',
+      code: `//语法：this.属性名 = 参数名; 用于区分属性和参数同名
+class Order {
+    insert(userName, spuName, spuPrice, spuCount, total, status, createdAt) {
+        this.userName = userName;
+        this.spuName = spuName;
+        this.spuPrice = spuPrice;
+        this.spuCount = spuCount;
+        this.total = total;
+        this.status = status;
+        this.createdAt = createdAt;
+        console.log("保存订单：" + this.userName + ", " + this.spuName);
+    }
+}
+
+let order = new Order()
+order.insert("张三", "牛奶", 2.5, 3, 7.5, true, "2024-01-01 12:30:00")`
     }],
     python: [{
       id: 'c1',
@@ -2425,6 +2539,7 @@ const kpOOPMethodParamReturn: KnowledgePoint = {
   title: '方法参数和返回值',
   video: {
     java: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    javascript: 'https://www.w3schools.com/html/mov_bbb.mp4',
     python: 'https://www.w3schools.com/html/mov_bbb.mp4',
     go: 'https://www.w3schools.com/html/mov_bbb.mp4',
     csharp: 'https://www.w3schools.com/html/mov_bbb.mp4'
@@ -2464,6 +2579,28 @@ void main() {
     boolean ok = order.insert("张三", "牛奶", 2.5, 3, 7.5, true, "2024-01-01 12:30:00");
     IO.println("保存结果：" + ok);
 }`
+    }],
+    javascript: [{
+      id: 'c1',
+      filename: 'main.js',
+      code: `//语法：方法名(参数名) { return 返回值; }
+class Order {
+    insert(userName, spuName, spuPrice, spuCount, total, status, createdAt) {
+        this.userName = userName;
+        this.spuName = spuName;
+        this.spuPrice = spuPrice;
+        this.spuCount = spuCount;
+        this.total = total;
+        this.status = status;
+        this.createdAt = createdAt;
+        console.log("保存订单：" + userName);
+        return true;
+    }
+}
+
+let order = new Order()
+let ok = order.insert("张三", "牛奶", 2.5, 3, 7.5, true, "2024-01-01 12:30:00")
+console.log("保存结果：" + ok)`
     }],
     python: [{
       id: 'c1',
@@ -3067,10 +3204,10 @@ console.log(!(5 > 3))       // false`
 
 // ========== 8门课程定义 ==========
 
-// 语言基础课程（导出供前端复用）
-export const languageBasicCourse: ProgrammingCourse = {
+// 语言基础课程
+const languageBasicCourse: ProgrammingCourse = {
   id: 'lang-basic',
-  title: '编程基础',
+  title: '语言基础',
   icon: '📖',
   chapters: [
     {

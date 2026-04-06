@@ -9763,7 +9763,7 @@ export const courses: Course[] =[
             "title": "架构演进路线图",
             "blocks": [
               {"id": "b1", "type": "text", "content": "互联网架构从简单到复杂的演进过程："},
-              {"id": "b2", "type": "table", "headers": ["阶段", "架构", "特点", "适用场景"], "rows": [["1", "纯文字", "最原始形态", "早期BBS/论坛"], ["2", "HTML静态", "展示丰富但无交互", "企业官网"], ["3", "动态页面", "数据库驱动内容", "早期电商"], ["4", "单体服务端渲染", "MVC分层", "中小型应用"], ["5", "单体前后端分离", "API+SPA", "中型应用"], ["6", "水合SSR同构", "服务端渲染+客户端水合", "SEO+首屏快+交互流畅"], ["7", "集群架构", "负载均衡", "高并发应用"], ["8", "分布式架构", "服务拆分", "大型应用"], ["9", "微服务架构", "独立部署", "复杂业务"], ["10", "服务网格", "基础设施层治理", "超大规模"], ["11", "无服务器", "按需计算", "事件驱动"], ["12", "边缘计算", "就近处理", "低延迟场景"]]}
+              {"id": "b2", "type": "table", "headers": ["阶段", "架构", "特点", "适用场景"], "rows": [["1", "纯文字", "最原始形态", "早期BBS/论坛"], ["2", "HTML静态", "展示丰富但无交互", "企业官网"], ["3", "动态页面", "数据库驱动内容", "早期电商"], ["4", "单体服务端渲染", "MVC分层", "中小型应用"], ["5", "单体前后端分离", "API+SPA", "中型应用"], ["6", "水合SSR同构", "服务端渲染+客户端水合", "SEO+首屏快+交互流畅"], ["7", "集群架构", "负载均衡", "高并发应用"], ["8", "分布式架构", "服务拆分", "大型应用"], ["9", "微服务架构", "独立部署", "复杂业务"], ["10", "服务网格", "基础设施层治理", "超大规模"], ["11", "无服务器", "按需计算", "事件驱动"], ["12", "Agent沙箱", "安全隔离执行", "AI代码执行"], ["13", "边缘计算", "就近处理", "低延迟场景"]]}
             ]
           }
         ]
@@ -10282,6 +10282,90 @@ export const courses: Course[] =[
             "blocks": [
               {"id": "b1", "type": "code", "language": "yaml", "filename": "event-trigger.yaml", "code": "# 事件源：监听Kafka消息\napiVersion: sources.knative.dev/v1beta1\nkind: KafkaSource\nmetadata:\n  name: order-source\nspec:\n  consumerGroup: order-group\n  bootstrapServers:\n  - kafka:9092\n  topics:\n  - orders\n  sink:\n    ref:\n      apiVersion: serving.knative.dev/v1\n      kind: Service\n      name: order-processor\n---\n# 处理函数\napiVersion: serving.knative.dev/v1\nkind: Service\nmetadata:\n  name: order-processor\nspec:\n  template:\n    spec:\n      containers:\n      - image: my-registry/order-processor:v1"},
               {"id": "b2", "type": "tip", "content": "适用场景：事件驱动、定时任务、突发流量、API网关后端"}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "ch11-5",
+        "title": "Agent沙箱架构",
+        "lessons": [
+          {
+            "id": "l0",
+            "title": "解决了什么问题",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "多用户云端生成代码隔离，AI Agent执行代码是图灵完备的：一旦Agent能执行任意代码，它能做的事就和程序员坐在终端前能做的事完全一样。"},
+              {"id": "b2", "type": "table", "headers": ["威胁类型", "具体风险", "后果"], "rows": [["提示注入逃逸", "恶意内容诱使Agent执行攻击者代码", "读取密钥、发起外联"], ["资源滥用", "无限循环、fork bomb、写满磁盘", "拖垮宿主机"], ["横向渗透", "读取环境变量、访问同机数据", "数据泄露"]]},
+              {"id": "b3", "type": "tip", "content": "Agent执行代码需要隔离，但隔离意味着开销。不同场景需要不同的隔离方案"}
+            ]
+          },
+          {
+            "id": "l1",
+            "title": "六种沙箱方案对比",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "沙箱隔离是一个连续的梯度——从轻到重，隔离强度与资源开销同步增长："},
+              {"id": "b2", "type": "table", "headers": ["方案", "隔离机制", "启动延迟", "内存/sandbox", "典型用户"], "rows": [["容器(Docker)", "namespace+cgroup", "~500ms", "几十MB", "本地开发"], ["gVisor", "用户态Linux内核", "~100ms", "较高", "Google Cloud Run"], ["Firecracker/E2B", "独立内核microVM", "~150ms", "默认1GB", "Manus、Perplexity"], ["ZeroBoot", "CoW KVM fork", "0.79ms", "265KB", "高并发场景"], ["Apple container", "per-container VM", "秒级", "较高", "macOS本地开发"], ["Wasm(Edge.js)", "Wasm线性内存模型", "毫秒级", "极低", "JS/Node Agent"]]},
+              {"id": "b3", "type": "tip", "content": "不是越新越好，是越匹配越好。威胁等级、性能要求、平台约束，三个维度共同决定选型"}
+            ]
+          },
+          {
+            "id": "l2",
+            "title": "容器方案",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "容器通过namespace+cgroup隔离视图，但所有容器共享宿主机的同一个Linux内核。"},
+              {"id": "b2", "type": "code", "language": "text", "filename": "容器隔离架构", "code": "┌──────────────────────────────────────────────┐\n│                  宿主机内核                     │\n│  ┌─────────────────────────────────────────┐ │\n│  │              共享的Linux内核               │ │\n│  └─────────────────────────────────────────┘ │\n│       │              │              │        │\n│  ┌────────┐    ┌────────┐    ┌────────┐     │\n│  │容器A    │    │容器B    │    │容器C    │     │\n│  │namespace│    │namespace│    │namespace│     │\n│  │+cgroup  │    │+cgroup  │    │+cgroup  │     │\n│  └────────┘    └────────┘    └────────┘     │\n└──────────────────────────────────────────────┘"},
+              {"id": "b3", "type": "code", "language": "bash", "filename": "安全运行示例", "code": "# 无状态运行，执行后立即销毁\ndocker run --rm \\\n  --network none \\           # 网络隔离\n  -v $(pwd):/workspace:ro \\  # 只读挂载\n  --memory 256m \\            # 内存限制\n  --cpus 0.5 \\               # CPU限制\n  python:3.9 python /workspace/script.py"},
+              {"id": "b4", "type": "tip", "content": "优点：简单、轻量。缺点：共享内核是根本性风险，历史上有多个内核漏洞可逃逸"}
+            ]
+          },
+          {
+            "id": "l3",
+            "title": "Firecracker微虚拟机",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "Firecracker是AWS为Lambda设计的microVM，核心原则：最小攻击面。每个VM有独立Linux内核，从根本上消除内核漏洞横向传播。"},
+              {"id": "b2", "type": "table", "headers": ["对比项", "Firecracker", "QEMU"], "rows": [["代码量", "~10万行", "~200万行"], ["虚拟设备", "仅6个", "完整硬件模拟"], ["启动时间", "<125ms", "秒级"], ["每VM内存开销", "~5MB", "较高"]]},
+              {"id": "b3", "type": "code", "language": "text", "filename": "E2B沙箱架构(Manus/Perplexity使用)", "code": "用户请求\n    ↓\n┌─────────────────────────────────────────────┐\n│              E2B 沙箱云服务                    │\n│  ┌─────────────────────────────────────────┐ │\n│  │          预热快照池 (Warm Pool)           │ │\n│  │   已启动的VM内存快照，~150ms恢复即可用     │ │\n│  └─────────────────────────────────────────┘ │\n│                      ↓                       │\n│  ┌────────┐  ┌────────┐  ┌────────┐        │\n│  │ VM-1   │  │ VM-2   │  │ VM-3   │        │\n│  │独立内核 │  │独立内核 │  │独立内核 │        │\n│  │1GB RAM │  │1GB RAM │  │1GB RAM │        │\n│  └────────┘  └────────┘  └────────┘        │\n└─────────────────────────────────────────────┘"},
+              {"id": "b4", "type": "tip", "content": "E2B每个sandbox是完整虚拟机，内含Chromium、终端、文件系统等27种工具"}
+            ]
+          },
+          {
+            "id": "l4",
+            "title": "ZeroBoot极速启动",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "ZeroBoot用Copy-on-Write KVM fork实现0.79ms启动VM。核心洞察：Python解释器、numpy代码段在所有sandbox间完全相同，无需复制。"},
+              {"id": "b2", "type": "table", "headers": ["指标", "ZeroBoot", "E2B", "Daytona"], "rows": [["Spawn p50", "0.79ms", "~150ms", "~27ms"], ["Spawn p99", "1.74ms", "~300ms", "~90ms"], ["内存/sandbox", "~265KB", "~128MB", "~50MB"], ["1000并发fork", "815ms", "-", "-"]]},
+              {"id": "b3", "type": "code", "language": "text", "filename": "CoW Fork原理", "code": "┌─────────────────────────────────────────────┐\n│              父VM (已启动就绪)                 │\n│    Python解释器 + 库 + 用户代码已加载          │\n└─────────────────────────────────────────────┘\n         │ fork (mmap MAP_PRIVATE)\n         ↓\n┌─────────────────────────────────────────────┐\n│              子VM (新sandbox)                 │\n│  读操作 → 直接访问原始页（零拷贝）              │\n│  写操作 → 触发CoW，分配新页                   │\n│  启动成本：仅 vCPU + 页表 ≈ 265KB             │\n└─────────────────────────────────────────────┘"},
+              {"id": "b4", "type": "tip", "content": "代价：依赖KVM仅支持Linux，项目仍为Working prototype，未production-hardened"}
+            ]
+          },
+          {
+            "id": "l5",
+            "title": "Wasm沙箱",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "如果Agent只执行JavaScript，可用WebAssembly沙箱，完全不依赖容器或虚拟机。隔离机制来自Wasm的内存模型：运行在线性内存里，无法访问边界外地址。"},
+              {"id": "b2", "type": "list", "items": ["启动时间毫秒级，内存开销极低", "完全兼容Node.js语义，现有JS Agent可直接迁移", "无需安装Docker或任何虚拟化工具", "局限：仅适合JS/TS，IO密集型有性能折扣"]},
+              {"id": "b3", "type": "code", "language": "javascript", "filename": "Edge.js示例", "code": "// 安全模式运行\n// --safe 模式下，所有系统调用都经过WASIX层显式授权\nedge run --safe my-agent.js\n\n// 可选的权限授予\nedge run --allow-net --allow-read=./data my-agent.js"}
+            ]
+          },
+          {
+            "id": "l6",
+            "title": "如何选型",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "问自己一个问题：如果这个sandbox被攻破，最坏的结果是什么？"},
+              {"id": "b2", "type": "table", "headers": ["场景", "低并发", "高并发"], "rows": [["低威胁(内部工具)", "Docker容器", "Docker容器+资源限制"], ["中威胁(多租户)", "Firecracker/E2B", "Firecracker/E2B+预热池"], ["高威胁+极高并发", "Firecracker/E2B", "ZeroBoot(前沿)"]]},
+              {"id": "b3", "type": "list", "items": ["只有JS/TS → Wasm/Edge.js（最轻量）", "macOS本地开发 → Apple container（原生VM级隔离）", "影响仅限本任务 → 容器够用", "可能影响同机其他用户数据 → 需要microVM", "公网暴露，攻击者有充分动机 → microVM + 严格评估"]},
+              {"id": "b4", "type": "tip", "content": "ZeroBoot的0.79ms是重要信号：当VM启动延迟被压到这个量级，'用容器换性能、用VM换安全'这个取舍可能被重写"}
+            ]
+          },
+          {
+            "id": "l7",
+            "title": "E2B沙箱实战",
+            "blocks": [
+              {"id": "b1", "type": "text", "content": "E2B是Manus、Perplexity等AI Agent使用的沙箱云服务，提供安全隔离的代码执行环境。"},
+              {"id": "b2", "type": "list", "items": ["1. 安装依赖：pnpm add @e2b/code-interpreter dotenv", "2. 配置环境变量：E2B_API_KEY=xxx", "3. 创建沙箱 → 执行代码 → 复用/销毁"]},
+              {"id": "b3", "type": "code", "language": "typescript", "filename": "index.ts", "code": "import 'dotenv/config'\nimport { Sandbox } from '@e2b/code-interpreter'\n\n// 1. 创建沙箱\nconst sbx = await Sandbox.create()\nconsole.log('沙箱ID:', sbx.sandboxId) // 保存ID可复用\n\n// 2. 在沙箱中执行Python代码\nconst execution = await sbx.runCode('print(\"hello world\")')\nconsole.log(execution.logs)\n\n// 3. 列出沙箱文件系统\nconst files = await sbx.files.list('/')\nconsole.log(files)\n\n// 4. 执行shell命令\nconst result = await sbx.commands.run('free -h')\nconsole.log(result.stdout)"},
+              {"id": "b4", "type": "code", "language": "typescript", "filename": "复用已有沙箱", "code": "// 通过沙箱ID复用已存在的沙箱\nasync function reuseSandbox(sandboxId: string) {\n  try {\n    // 连接到已存在的沙箱\n    const existingSbx = await Sandbox.connect(sandboxId)\n    console.log('成功连接到已存在的沙箱:', sandboxId)\n    return existingSbx\n  } catch (error) {\n    console.error('连接沙箱失败，可能沙箱已过期或不存在:', error)\n    // 如果连接失败，创建新沙箱\n    const newSbx = await Sandbox.create()\n    console.log('已创建新沙箱:', newSbx.sandboxId)\n    return newSbx\n  }\n}\n\n// 使用示例\nconst reusedSbx = await reuseSandbox('sbx_xxx')\nconst result = await reusedSbx.commands.run('free -h')\nconsole.log(result.stdout)"},
+              {"id": "b5", "type": "tip", "content": "E2B沙箱默认超时时间为5分钟，可通过Sandbox.create({ timeout: 3600 })设置更长时间"}
             ]
           }
         ]

@@ -68,7 +68,7 @@ export interface NavItem {
 export type ProgrammingLanguage = 'java' | 'python' | 'go' | 'javascript' | 'c' | 'csharp' | 'ai'
 
 // 支持的前端技术栈
-export type FrontendTech = 'html' | 'vue' | 'react' | 'android' | 'ios' | 'harmonyos' | 'uniapp' | 'miniprogram' | 'electron' | 'qt'
+export type FrontendTech = 'html' | 'vue' | 'react' | 'android' | 'ios' | 'harmonyos' | 'uniapp' | 'miniprogram' | 'electron' | 'qt' | 'ai_vue'
 
 // 代码实现类型（后端语言 + 前端技术栈）
 export type CodeImplKey = ProgrammingLanguage | FrontendTech

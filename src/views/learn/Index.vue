@@ -161,7 +161,7 @@ const router = useRouter()
 
 // 语言列表
 const backendLangs = ['java', 'javascript', 'python', 'go', 'c', 'csharp']
-const frontendLangs = ['html', 'vue', 'react', 'android', 'ios', 'harmonyos', 'uniapp', 'miniprogram', 'electron', 'qt']
+const frontendLangs = ['html', 'vue', 'react', 'android', 'ios', 'harmonyos', 'uniapp', 'miniprogram', 'electron', 'qt', 'ai_vue']
 
 // 加载状态
 const loading = ref(true)
@@ -182,7 +182,8 @@ const frontendToBackendLang: Record<string, string> = {
   harmonyos: 'javascript',
   qt: 'javascript',
   android: 'java',
-  ios: 'javascript' // iOS暂用js替代
+  ios: 'javascript', // iOS暂用js替代
+  ai_vue: 'ai' // AI编程Vue映射到ai
 }
 
 // 获取映射后的语言（用于语言基础课程）
@@ -362,7 +363,8 @@ function getLangDisplayName(langKey: string): string {
   const names: Record<string, string> = {
     java: 'Java', javascript: 'JavaScript', python: 'Python', go: 'Go', c: 'C', csharp: 'C#', ai: 'AI编程',
     html: 'HTML', vue: 'Vue', react: 'React', android: 'Android', ios: 'iOS',
-    harmonyos: '鸿蒙', uniapp: 'UniApp', miniprogram: '小程序', electron: 'Electron', qt: 'Qt'
+    harmonyos: '鸿蒙', uniapp: 'UniApp', miniprogram: '小程序', electron: 'Electron', qt: 'Qt',
+    ai_vue: 'AI编程Vue'
   }
   return names[langKey] || langKey
 }

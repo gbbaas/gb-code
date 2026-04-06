@@ -437,6 +437,25 @@ ApplicationWindow {
         Text { text: "这是一个Qt页面" }
     }
 }`
+    }],
+    ai_vue: [{
+      id: 'ai1',
+      filename: 'App.vue',
+      prompt: '创建一个简单的Vue页面，显示标题"欢迎来到我的页面"和描述"这是一个Vue页面"',
+      code: `<template>
+  <div class="page">
+    <h1>欢迎来到我的页面</h1>
+    <p>这是一个Vue页面</p>
+  </div>
+</template>
+
+<script setup>
+// Vue3 组合式API
+</script>
+
+<style scoped>
+.page { padding: 20px; }
+</style>`
     }]
   }
 }
@@ -700,6 +719,36 @@ Button {
         horizontalAlignment: Text.AlignHCenter
     }
 }`
+    }],
+    ai_vue: [{
+      id: 'ai1',
+      filename: 'MyButton.vue',
+      prompt: '创建一个可复用的按钮组件，支持自定义文本和点击事件',
+      code: `<template>
+  <button class="btn" @click="handleClick">
+    {{ text }}
+  </button>
+</template>
+
+<script setup>
+defineProps({
+  text: { type: String, default: '点击我' }
+})
+
+const emit = defineEmits(['click'])
+const handleClick = () => emit('click')
+</script>
+
+<style scoped>
+.btn {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>`
     }]
   }
 }
@@ -996,6 +1045,41 @@ Column {
         }
     }
 }`
+    }],
+    ai_vue: [{
+      id: 'ai1',
+      filename: 'App.vue',
+      prompt: '创建一个包含标题和按钮的页面，标题使用灰色粗体，按钮使用蓝色背景白色文字',
+      code: `<template>
+  <div class="container">
+    <h1 class="title">标题</h1>
+    <button class="button">按钮</button>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.title {
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>`
     }]
   }
 }
@@ -1039,7 +1123,15 @@ const handleClick = () => console.log('按钮被点击')
 </script>` }],
     miniprogram: [{ id: 'c1', filename: 'index.wxml', code: `<button bindtap="handleClick">点击</button>` }],
     electron: [{ id: 'c1', filename: 'renderer.js', code: `const btn = document.querySelector('button')\nbtn.onclick = () => console.log('按钮被点击')` }],
-    qt: [{ id: 'c1', filename: 'main.qml', code: `Button {\n    text: "点击"\n    onClicked: console.log("按钮被点击")\n}` }]
+    qt: [{ id: 'c1', filename: 'main.qml', code: `Button {\n    text: "点击"\n    onClicked: console.log("按钮被点击")\n}` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '创建一个按钮，点击后在控制台输出"按钮被点击"', code: `<template>
+  <button @click="handleClick">点击</button>
+</template>
+<script setup>
+const handleClick = () => {
+  console.log('按钮被点击')
+}
+</script>` }]
   }
 }
 
@@ -1084,7 +1176,13 @@ function App() {
   }
 })` }],
     electron: [{ id: 'c1', filename: 'renderer.js', code: `window.onload = () => console.log('页面加载完成')` }],
-    qt: [{ id: 'c1', filename: 'main.qml', code: `Component.onCompleted: {\n    console.log("页面加载完成")\n}` }]
+    qt: [{ id: 'c1', filename: 'main.qml', code: `Component.onCompleted: {\n    console.log("页面加载完成")\n}` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '创建一个Vue页面，在页面加载完成时输出"页面加载完成"', code: `<script setup>
+import { onMounted } from 'vue'
+onMounted(() => {
+  console.log('页面加载完成')
+})
+</script>` }]
   }
 }
 
@@ -1588,7 +1686,14 @@ const name = ref('张三')
 </script>` }],
     miniprogram: [{ id: 'c1', filename: 'index.wxml', code: `<text>{{name}}</text>` }],
     electron: [{ id: 'c1', filename: 'renderer.js', code: `const name = '张三'\ndocument.getElementById('name').textContent = name` }],
-    qt: [{ id: 'c1', filename: 'main.qml', code: `property string name: "张三"\nText { text: name }` }]
+    qt: [{ id: 'c1', filename: 'main.qml', code: `property string name: "\u5f20\u4e09"\nText { text: name }` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '\u521b\u5efa\u4e00\u4e2a\u9875\u9762\uff0c\u5c55\u793a\u53d8\u91cf name \u7684\u503c"\u5f20\u4e09"', code: `<template>
+  <p>{{ name }}</p>
+</template>
+<script setup>
+import { ref } from 'vue'
+const name = ref('\u5f20\u4e09')
+</script>` }]
   }
 }
 
@@ -1636,7 +1741,14 @@ const imgUrl = ref('logo.png')
 </script>` }],
     miniprogram: [{ id: 'c1', filename: 'index.wxml', code: `<image src="{{imgUrl}}"></image>` }],
     electron: [{ id: 'c1', filename: 'renderer.js', code: `const imgUrl = 'logo.png'\ndocument.getElementById('img').src = imgUrl` }],
-    qt: [{ id: 'c1', filename: 'main.qml', code: `property string imgUrl: "logo.png"\nImage { source: imgUrl }` }]
+    qt: [{ id: 'c1', filename: 'main.qml', code: `property string imgUrl: "logo.png"\nImage { source: imgUrl }` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '\u521b\u5efa\u4e00\u4e2a\u56fe\u7247\u7ec4\u4ef6\uff0c\u52a8\u6001\u7ed1\u5b9a\u56fe\u7247\u5730\u5740', code: `<template>
+  <img :src="imgUrl">
+</template>
+<script setup>
+import { ref } from 'vue'
+const imgUrl = ref('logo.png')
+</script>` }]
   }
 }
 
@@ -1691,8 +1803,16 @@ const show = ref(true)
     qt: [{ id: 'c1', filename: 'main.qml', code: `property bool show: true
 Text {
     visible: show
-    text: "显示内容"
-}` }]
+    text: "\u663e\u793a\u5185\u5bb9"
+}` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '\u521b\u5efa\u4e00\u4e2a\u9875\u9762\uff0c\u6839\u636e show \u53d8\u91cf\u51b3\u5b9a\u662f\u5426\u663e\u793a\u5185\u5bb9', code: `<template>
+  <p v-if="show">\u663e\u793a\u5185\u5bb9</p>
+  <p v-else>\u9690\u85cf\u5185\u5bb9</p>
+</template>
+<script setup>
+import { ref } from 'vue'
+const show = ref(true)
+</script>` }]
   }
 }
 
@@ -1754,7 +1874,16 @@ items.forEach(item => {
     li.textContent = item
     ul.appendChild(li)
 })` }],
-    qt: [{ id: 'c1', filename: 'main.qml', code: `Repeater {\n    model: ['苹果', '香蕉', '橙子']\n    Text { text: modelData }\n}` }]
+    qt: [{ id: 'c1', filename: 'main.qml', code: `Repeater {\n    model: ['苹果', '香蕉', '橙子']\n    Text { text: modelData }\n}` }],
+    ai_vue: [{ id: 'ai1', filename: 'App.vue', prompt: '创建一个列表，展示苹果、香蕉、橙子三个水果', code: `<template>
+  <ul>
+    <li v-for="item in items" :key="item">{{ item }}</li>
+  </ul>
+</template>
+<script setup>
+import { ref } from 'vue'
+const items = ref(['苹果', '香蕉', '橙子'])
+</script>` }]
   }
 }
 
