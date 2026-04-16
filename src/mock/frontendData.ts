@@ -264,17 +264,188 @@ const items = ['苹果', '香蕉', '橙子']
   }
 }
 
-// 页面知识点
-const kpPage: KnowledgePoint = {
-  id: 'fe-page',
-  title: '页面',
+// ========== 页面知识点 ==========
+
+// 安装Trae IDE和Node.js
+const kpDownloadTrae: KnowledgePoint = {
+  id: 'fe-download-trae',
+  title: '安装Trae和Node.js',
   video: {
     html: 'https://www.w3schools.com/html/mov_bbb.mp4',
     vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
     react: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   blocks: [
-    { id: 'b1', type: 'text', content: '页面是用户看到的界面，包含各种元素的布局和显示' }
+    { id: 'b1', type: 'text', content: '先安装这两个工具：Trae是AI编程工具，Node.js是运行Vue/React项目必需的运行环境' }
+  ],
+  codeImpl: {
+    html: [{
+      id: 'c1',
+      filename: 'PowerShell命令',
+      code: `winget install OpenJS.NodeJS; winget install ByteDance.Trae.CN`
+    }],
+    vue: [{
+      id: 'c1',
+      filename: 'PowerShell命令',
+      code: `winget install OpenJS.NodeJS; winget install ByteDance.Trae.CN`
+    }],
+    react: [{
+      id: 'c1',
+      filename: 'PowerShell命令',
+      code: `winget install OpenJS.NodeJS; winget install ByteDance.Trae.CN`
+    }]
+  }
+}
+
+// 创建和预览
+const kpCreateAndPreview: KnowledgePoint = {
+  id: 'fe-create-preview',
+  title: '创建和预览',
+  video: {
+    html: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '用自然语言告诉 AI 帮你创建页面...' },
+    { id: 'b2', type: 'list', items: [
+      'HTML：让 AI 创建一个 index.html 文件',
+      'Vue/React：让 AI 帮你创建项目并预览'
+    ]},
+    { id: 'b3', type: 'tip', content: '查看下方代码，可以了解背后的命令是什么' }
+  ],
+  codeImpl: {
+    html: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `创建一个 index.html 文件，内容是第一个页面，并预览`
+    }, {
+      id: 'c2',
+      filename: 'index.html',
+      code: `<!DOCTYPE html>
+<html>
+<head>
+    <title>第一个页面</title>
+</head>
+<body>
+    <h1>第一个页面</h1>
+</body>
+</html>`
+    }],
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `创建一个 Vue3 项目，内容是第一个页面，并预览`
+    }, {
+      id: 'c2',
+      filename: '示例代码（src/App.vue）',
+      code: `<script setup>
+// 这里是代码
+</script>
+
+<template>
+  <h1>第一个页面</h1>
+</template>`
+    }],
+    react: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `创建一个 React 项目，内容是第一个页面，并OpenPreview预览`
+    }, {
+      id: 'c2',
+      filename: '示例代码（src/App.jsx）',
+      code: `function App() {
+  return (
+    <div>
+      <h1>第一个页面</h1>
+    </div>
+  )
+}
+
+export default App`
+    }]
+  }
+}
+
+// 修改页面
+const kpModifyPage: KnowledgePoint = {
+  id: 'fe-modify-page',
+  title: '修改页面',
+  video: {
+    html: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '用自然语言告诉 AI 你想怎么修改页面...' },
+    { id: 'b2', type: 'list', items: [
+      '「在页面中添加一个标题」',
+      '「把标题改成"我的网站"」',
+      '「添加一个按钮」'
+    ]},
+    { id: 'b3', type: 'tip', content: 'AI 会自动修改代码，你只需要刷新浏览器查看效果' }
+  ],
+  codeImpl: {
+    html: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `修改标题为商城网站`
+    }, {
+      id: 'c2',
+      filename: 'index.html',
+      code: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商城网站</title>
+</head>
+<body>
+    <h1>欢迎来到商城网站</h1>
+</body>
+</html>`
+    }],
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `修改标题为商城网站`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+    <h1>欢迎来到商城网站</h1>
+</template>`
+    }],
+    react: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `修改标题为商城网站`
+    }, {
+      id: 'c2',
+      filename: 'src/App.jsx',
+      code: `function App() {
+  return (
+    <div>
+      <h1>欢迎来到商城网站</h1>
+    </div>
+  )
+}
+
+export default App`
+    }]
+  }
+}
+
+// 认识页面
+const kpUnderstandPage: KnowledgePoint = {
+  id: 'fe-understand-page',
+  title: '认识页面',
+  video: {
+    html: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
+    react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'tip', content: 'HTML 和 Vue 都是用来创建页面的技术，页面里面装的都是内容（文字、图片、视频、按钮等）' }
   ],
   codeImpl: {
     html: [{
@@ -283,182 +454,458 @@ const kpPage: KnowledgePoint = {
       code: `<!DOCTYPE html>
 <html>
 <head>
-    <title>我的页面</title>
+    <!-- 这里是页面头部，写一些配置信息 -->
 </head>
 <body>
-    <h1>欢迎来到我的页面</h1>
-    <p>这是一个简单的HTML页面</p>
+    <!-- 这里是页面主体，所有内容都放在这里 -->
 </body>
 </html>`
     }],
     vue: [{
       id: 'c1',
-      filename: 'App.vue',
-      code: `<template>
-  <div class="page">
-    <h1>欢迎来到我的页面</h1>
-    <p>这是一个Vue页面</p>
-  </div>
-</template>
-
-<script setup>
-// Vue3 组合式API
-</script>
-
-<style scoped>
-.page { padding: 20px; }
-</style>`
+      filename: 'src/App.vue',
+      code: `<!-- 页面内容都写在 template 标签里面 -->
+<template>
+    <!-- 所有要显示的内容都放在这里 -->
+</template>`
     }],
     react: [{
       id: 'c1',
-      filename: 'App.jsx',
-      code: `function App() {
+      filename: 'src/App.jsx',
+      code: `// 页面的内容写在 return() 里面
+function App() {
   return (
-    <div className="page">
-      <h1>欢迎来到我的页面</h1>
-      <p>这是一个React页面</p>
+    <div>
+      {/* 所有要显示的内容都放在这里 */}
     </div>
   )
-}
-
-export default App`
-    }],
-    android: [{
-      id: 'c1',
-      filename: 'activity_main.xml',
-      code: `<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="欢迎来到我的页面"
-        android:textSize="24sp" />
-        
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这是一个Android页面" />
-</LinearLayout>`
-    }],
-    ios: [{
-      id: 'c1',
-      filename: 'ContentView.swift',
-      code: `import SwiftUI
-
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Text("欢迎来到我的页面")
-                .font(.title)
-            Text("这是一个iOS页面")
-        }
-        .padding()
-    }
 }`
-    }],
-    harmonyos: [{
-      id: 'c1',
-      filename: 'Index.ets',
-      code: `@Entry
-@Component
-struct Index {
-  build() {
-    Column() {
-      Text('欢迎来到我的页面')
-        .fontSize(24)
-      Text('这是一个鸿蒙页面')
-    }
-    .padding(16)
-  }
-}`
-    }],
-    uniapp: [{
-      id: 'c1',
-      filename: 'index.vue',
-      code: `<template>
-  <view class="page">
-    <text class="title">欢迎来到我的页面</text>
-    <text>这是一个UniApp页面</text>
-  </view>
-</template>
-
-<script setup>
-// UniApp页面
-</script>
-
-<style scoped>
-.page { padding: 20px; }
-.title { font-size: 24px; }
-</style>`
-    }],
-    miniprogram: [{
-      id: 'c1',
-      filename: 'index.wxml',
-      code: `<!-- 小程序页面 -->
-<view class="page">
-  <text class="title">欢迎来到我的页面</text>
-  <text>这是一个小程序页面</text>
-</view>`
-    }],
-    electron: [{
-      id: 'c1',
-      filename: 'index.html',
-      code: `<!DOCTYPE html>
-<html>
-<head>
-    <title>Electron应用</title>
-</head>
-<body>
-    <h1>欢迎来到我的页面</h1>
-    <p>这是一个Electron桌面应用页面</p>
-</body>
-</html>`
-    }],
-    qt: [{
-      id: 'c1',
-      filename: 'main.qml',
-      code: `import QtQuick 2.15
-import QtQuick.Controls 2.15
-
-ApplicationWindow {
-    visible: true
-    width: 400
-    height: 300
-    title: "我的页面"
-    
-    Column {
-        anchors.centerIn: parent
-        Text { text: "欢迎来到我的页面"; font.pixelSize: 24 }
-        Text { text: "这是一个Qt页面" }
-    }
-}`
-    }],
-    ai_vue: [{
-      id: 'ai1',
-      filename: 'App.vue',
-      prompt: '创建一个简单的Vue页面，显示标题"欢迎来到我的页面"和描述"这是一个Vue页面"',
-      code: `<template>
-  <div class="page">
-    <h1>欢迎来到我的页面</h1>
-    <p>这是一个Vue页面</p>
-  </div>
-</template>
-
-<script setup>
-// Vue3 组合式API
-</script>
-
-<style scoped>
-.page { padding: 20px; }
-</style>`
     }]
   }
 }
+
+// 商品详情页面 - 区域划分
+const kpProductDiv: KnowledgePoint = {
+  id: 'fe-product-div',
+  title: '区域划分',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '页面通常分为多个区域，用div标签划分' },
+    { id: 'b2', type: 'table', headers: ['标签', '作用'], rows: [
+      ['div', '划分区域容器，当成一个长方形的容器，能放其他标签'],
+      ['h1', '标题'],
+      ['img', '图片'],
+      ['p', '文字段落'],
+      ['ul/li', '列表'],
+      ['a', '链接']
+    ]}
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `创建商品详情页，包含标题、图片、价格、描述、列表、链接`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <div>
+    <h1>iPhone15手机</h1>
+    <img src="iphone15.jpg">
+    <p>价格：5999元</p>
+    <p>这是最新的iPhone15手机，配置强劲</p>
+    <ul>
+      <li>CPU：A17 Pro</li>
+      <li>内存：8GB</li>
+    </ul>
+    <a href="/more">查看更多</a>
+  </div>
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 标题
+const kpProductTitle: KnowledgePoint = {
+  id: 'fe-product-title',
+  title: '标题',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '商品详情页面通常包含标题、图片、价格、描述、按钮等部分，先从标题开始' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加商品标题，标题内容是iPhone15手机`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <h1>iPhone15手机</h1>
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 图片
+const kpProductImage: KnowledgePoint = {
+  id: 'fe-product-image',
+  title: '图片',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '商品图片展示商品外观' },
+    { id: 'b2', type: 'tip', content: '图片可以放在项目文件夹中，也可以直接使用网络图片URL' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加商品图片`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <img src="iphone15.jpg" alt="iPhone15手机">
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 文字描述
+const kpProductText: KnowledgePoint = {
+  id: 'fe-product-text',
+  title: '文字',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '商品详细描述文字' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加商品描述：这是最新的iPhone15手机`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <p>这是最新的iPhone15手机</p>
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 价格
+const kpProductPrice: KnowledgePoint = {
+  id: 'fe-product-price',
+  title: '价格',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '展示商品价格' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加商品价格：5999元`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <p>价格：5999元</p>
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 列表
+const kpProductList: KnowledgePoint = {
+  id: 'fe-product-list',
+  title: '列表',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '商品参数列表，如配置清单' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加商品参数列表：CPU、内存、存储`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <ul>
+    <li>CPU：A17 Pro</li>
+    <li>内存：8GB</li>
+    <li>存储：256GB</li>
+  </ul>
+</template>`
+    }]
+  }
+}
+
+// 商品详情页面 - 链接
+const kpProductLink: KnowledgePoint = {
+  id: 'fe-product-link',
+  title: '链接',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '链接跳转到其他页面' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加查看更多链接`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <a href="/more">查看更多商品</a>
+</template>`
+    }]
+  }
+}
+
+// 结账表单知识点
+const kpCheckoutForm: KnowledgePoint = {
+  id: 'fe-checkout-form',
+  title: '结账表单',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '在页面输入内容，完成人和页面进行交互，结账表单包含文本输入框、单选、多选、下拉框、按钮' },
+    { id: 'b2', type: 'table', headers: ['标签', '作用'], rows: [
+      ['input', '输入框'],
+      ['radio', '单选'],
+      ['checkbox', '多选'],
+      ['select', '下拉框'],
+      ['button', '按钮']
+    ]}
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `在商品详情页基础上追加结账表单`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <div>
+    <!-- 商品信息 -->
+    <h1>iPhone15手机</h1>
+    <img src="iphone15.jpg">
+    <p>价格：5999元</p>
+    <p>这是最新的iPhone15手机</p>
+    <ul>
+      <li>CPU：A17 Pro</li>
+      <li>内存：8GB</li>
+    </ul>
+    <a href="/more">查看更多</a>
+    
+    <!-- 结账表单 -->
+    <div>
+      <input placeholder="收件人">
+      <input type="tel" placeholder="手机号">
+      <input placeholder="收货地址">
+      <input type="radio" name="gender"> 男
+      <input type="radio" name="gender"> 女
+      <input type="checkbox"> 看书
+      <input type="checkbox"> 运动
+      <select>
+        <option>北京</option>
+        <option>上海</option>
+      </select>
+      <button>立即支付</button>
+    </div>
+  </div>
+</template>`
+    }]
+  }
+}
+
+// 按钮知识点
+const kpButton: KnowledgePoint = {
+  id: 'fe-button',
+  title: '按钮',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '按钮用于提交或操作' },
+    { id: 'b2', type: 'tip', content: '告诉AI帮你添加' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `添加按钮`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <button>点击我</button>
+</template>`
+    }]
+  }
+}
+
+// Flex水平排列
+const kpFlexRow: KnowledgePoint = {
+  id: 'kp-flex-row',
+  title: '水平排列',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: 'flex默认水平排列，让图片和信息左右并排显示' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `把商品详情页的图片和信息横向排列`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <div style="display: flex;">
+    <!-- 商品图片 -->
+    <img src="iphone15.jpg" width="200">
+    
+    <!-- 商品信息 -->
+    <div>
+      <h1>iPhone15手机</h1>
+      <p>价格：5999元</p>
+      <p>这是最新的iPhone15手机，配置强劲</p>
+      <ul>
+        <li>CPU：A17 Pro</li>
+        <li>内存：8GB</li>
+      </ul>
+      <a href="/more">查看更多</a>
+    </div>
+  </div>
+</template>`
+    }]
+  }
+}
+
+// Flex竖直排列
+const kpFlexColumn: KnowledgePoint = {
+  id: 'kp-flex-column',
+  title: '竖直排列',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: 'flex-direction: column 让元素从上到下排列' }
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `把结账表单竖直排列`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <div style="display: flex;">
+    <!-- 商品图片 -->
+    <img src="iphone15.jpg" width="200">
+    
+    <!-- 商品信息 -->
+    <div>
+      <h1>iPhone15手机</h1>
+      <p>价格：5999元</p>
+    </div>
+    
+    <!-- 结账表单 - 竖直排列 -->
+    <div style="display: flex; flex-direction: column;">
+      <input placeholder="收件人">
+      <input type="tel" placeholder="手机号">
+      <input placeholder="收货地址">
+      <button>立即支付</button>
+    </div>
+  </div>
+</template>`
+    }]
+  }
+}
+
+// Flex对齐方式
+const kpFlexAlign: KnowledgePoint = {
+  id: 'kp-flex-align',
+  title: '对齐方式',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: 'justify-content控制主轴对齐，align-items控制交叉轴对齐' },
+    { id: 'b2', type: 'table', headers: ['属性值', '效果'], rows: [
+      ['flex-start', '起点对齐(左/上)'],
+      ['center', '居中对齐'],
+      ['flex-end', '终点对齐(右/下)'],
+      ['space-between', '两端对齐'],
+      ['space-around', '均匀分布']
+    ]}
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `让商品信息和价格两端对齐`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
+      code: `<template>
+  <div style="display: flex;">
+    <!-- 商品图片 -->
+    <img src="iphone15.jpg" width="200">
+    
+    <!-- 商品信息 -->
+    <div style="display: flex; flex-direction: column; flex: 1;">
+      <div style="display: flex; justify-content: space-between;">
+        <h1>iPhone15手机</h1>
+        <p style="color: red;">￥5999</p>
+      </div>
+      <p>这是最新的iPhone15手机，配置强劲</p>
+    </div>
+    
+    <!-- 结账表单 -->
+    <div style="display: flex; flex-direction: column;">
+      <input placeholder="收件人">
+      <input type="tel" placeholder="手机号">
+      <button>立即支付</button>
+    </div>
+  </div>
+</template>`
+    }]
+  }
+}
+
+
 
 // 组件知识点
 const kpComponent: KnowledgePoint = {
@@ -756,329 +1203,98 @@ const handleClick = () => emit('click')
 // 样式知识点
 const kpStyle: KnowledgePoint = {
   id: 'fe-style',
-  title: '样式',
+  title: '内联样式',
   video: {
-    html: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
-    react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
   },
   blocks: [
-    { id: 'b1', type: 'text', content: '样式用于控制页面元素的外观，包括颜色、大小、布局等' }
+    { id: 'b1', type: 'text', content: '内联样式直接写在标签的style属性里，适合简单样式' },
+    { id: 'b2', type: 'table', headers: ['属性', '作用'], rows: [
+      ['color', '文字颜色'],
+      ['font-size', '字体大小'],
+      ['background-color', '背景色'],
+      ['padding', '内边距'],
+      ['margin', '外边距'],
+      ['border', '边框']
+    ]}
   ],
   codeImpl: {
-    html: [{
-      id: 'c1',
-      filename: 'style.css',
-      code: `/* CSS样式 */
-.container {
-  display: flex;
-  padding: 20px;
-  background: #f5f5f5;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: #0056b3;
-}`
-    }],
     vue: [{
       id: 'c1',
-      filename: 'App.vue',
-      code: `<template>
-  <div class="container">
-    <h1 class="title">标题</h1>
-    <button class="button">按钮</button>
-  </div>
-</template>
-
-<style scoped>
-/* scoped样式只作用于当前组件 */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
-</style>`
-    }],
-    react: [{
-      id: 'c1',
-      filename: 'App.module.css',
-      code: `/* CSS Modules */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}`
+      filename: 'ai编程',
+      code: `给商品详情页添加样式：标题红色、价格黄色背景、按钮蓝色`
     }, {
       id: 'c2',
-      filename: 'App.jsx',
-      code: `import styles from './App.module.css'
-
-function App() {
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>标题</h1>
-      <button className={styles.button}>按钮</button>
-    </div>
-  )
-}`
-    }],
-    android: [{
-      id: 'c1',
-      filename: 'styles.xml',
-      code: `<!-- Android样式资源 -->
-<resources>
-    <style name="Container">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">16dp</item>
-    </style>
-    
-    <style name="Title">
-        <item name="android:textColor">#333333</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-    
-    <style name="PrimaryButton">
-        <item name="android:background">@color/primary</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:padding">10dp</item>
-    </style>
-</resources>`
-    }],
-    ios: [{
-      id: 'c1',
-      filename: 'ContentView.swift',
-      code: `import SwiftUI
-
-struct ContentView: View {
-    var body: some View {
-        VStack(spacing: 16) {
-            Text("标题")
-                .font(.title)
-                .foregroundColor(Color(hex: "#333333"))
-            
-            Button("按钮") {}
-                .padding(.horizontal, 20)
-                .padding(.vertical, 10)
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(4)
-        }
-        .padding(20)
-    }
-}`
-    }],
-    harmonyos: [{
-      id: 'c1',
-      filename: 'Index.ets',
-      code: `@Entry
-@Component
-struct Index {
-  build() {
-    Column({ space: 16 }) {
-      Text('标题')
-        .fontSize(24)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#333333')
-      
-      Button('按钮')
-        .padding({ left: 20, right: 20, top: 10, bottom: 10 })
-        .backgroundColor('#007bff')
-        .fontColor(Color.White)
-        .borderRadius(4)
-    }
-    .padding(20)
-  }
-}`
-    }],
-    uniapp: [{
-      id: 'c1',
-      filename: 'index.vue',
+      filename: 'src/App.vue',
       code: `<template>
-  <view class="container">
-    <text class="title">标题</text>
-    <button class="button">按钮</button>
-  </view>
-</template>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border-radius: 4px;
-}
-</style>`
-    }],
-    miniprogram: [{
-      id: 'c1',
-      filename: 'index.wxss',
-      code: `/* 小程序样式 */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border-radius: 4px;
-}`
-    }],
-    electron: [{
-      id: 'c1',
-      filename: 'styles.css',
-      code: `/* Electron使用标准CSS */
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}`
-    }],
-    qt: [{
-      id: 'c1',
-      filename: 'main.qml',
-      code: `import QtQuick 2.15
-import QtQuick.Controls 2.15
-
-Column {
-    spacing: 16
-    padding: 20
+  <div style="display: flex;">
+    <img src="iphone15.jpg" width="200">
     
-    Text {
-        text: "标题"
-        font.pixelSize: 24
-        font.bold: true
-        color: "#333333"
-    }
+    <div>
+      <h1 style="color: red;">iPhone15手机</h1>
+      <p style="background-color: yellow;">价格：5999元</p>
+      <p>这是最新的iPhone15手机</p>
+    </div>
     
-    Button {
-        text: "按钮"
-        padding: 10
-        
-        background: Rectangle {
-            color: "#007bff"
-            radius: 4
-        }
-        
-        contentItem: Text {
-            text: parent.text
-            color: "white"
-        }
-    }
-}`
-    }],
-    ai_vue: [{
-      id: 'ai1',
-      filename: 'App.vue',
-      prompt: '创建一个包含标题和按钮的页面，标题使用灰色粗体，按钮使用蓝色背景白色文字',
+    <div style="display: flex; flex-direction: column;">
+      <input style="padding: 10px;" placeholder="收件人">
+      <input style="padding: 10px;" placeholder="手机号">
+      <button style="background-color: blue; color: white; padding: 10px;">立即支付</button>
+    </div>
+  </div>
+</template>`
+    }]
+  }
+}
+
+// 选择器知识点
+const kpSelector: KnowledgePoint = {
+  id: 'fe-selector',
+  title: '选择器',
+  video: {
+    vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
+  },
+  blocks: [
+    { id: 'b1', type: 'text', content: '选择器用class提取样式，实现复用，代码更整洁' },
+    { id: 'b2', type: 'table', headers: ['选择器', '示例'], rows: [
+      ['class选择器', '.title { color: red; }'],
+      ['id选择器', '#price { color: gold; }'],
+      ['标签选择器', 'h1 { font-size: 24px; }']
+    ]}
+  ],
+  codeImpl: {
+    vue: [{
+      id: 'c1',
+      filename: 'ai编程',
+      code: `用选择器重构样式，提取公共样式到class`
+    }, {
+      id: 'c2',
+      filename: 'src/App.vue',
       code: `<template>
   <div class="container">
-    <h1 class="title">标题</h1>
-    <button class="button">按钮</button>
+    <img src="iphone15.jpg" width="200">
+    
+    <div>
+      <h1 class="title">iPhone15手机</h1>
+      <p class="price">价格：5999元</p>
+      <p>这是最新的iPhone15手机</p>
+    </div>
+    
+    <div class="form">
+      <input class="input" placeholder="收件人">
+      <input class="input" placeholder="手机号">
+      <button class="btn">立即支付</button>
+    </div>
   </div>
 </template>
 
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
-}
-
-.title {
-  color: #333;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
+<style>
+.container { display: flex; }
+.title { color: red; }
+.price { background-color: yellow; }
+.form { display: flex; flex-direction: column; }
+.input { padding: 10px; }
+.btn { background-color: blue; color: white; padding: 10px; }
 </style>`
     }]
   }
@@ -3644,113 +3860,47 @@ const pageBasicCourse: ProgrammingCourse = {
   chapters: [
     { 
       id: 'ch-first-page', 
-      title: '第一个网页',
+      title: '第一个页面',
       video: {
         html: 'https://www.w3schools.com/html/mov_bbb.mp4',
         vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
         react: 'https://www.w3schools.com/html/mov_bbb.mp4'
       },
-      points: [kpPage] 
+      points: [kpDownloadTrae, kpCreateAndPreview, kpModifyPage] 
     },
     { 
       id: 'ch-content', 
-      title: '商品文章内容',
+      title: '商品详情页面',
       video: {
         html: 'https://www.w3schools.com/html/mov_bbb.mp4',
         vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
         react: 'https://www.w3schools.com/html/mov_bbb.mp4'
       },
-      points: [kpComponent] 
+      points: [kpProductDiv] 
     },
     { 
       id: 'ch-form', 
-      title: '下单表单',
+      title: '结账表单',
       video: {
-        html: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+        vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
       },
-      points: [{
-      id: 'kp-form',
-      title: '表单',
-      blocks: [{ id: 'b1', type: 'text', content: '表单用于收集用户输入，如收货地址、购买数量等。' }],
-      codeImpl: {
-        html: [{
-          id: 'c1',
-          filename: 'index.html',
-          code: `<form>
-    <input type="text" placeholder="收货人">
-    <input type="text" placeholder="收货地址">
-    <input type="number" placeholder="购买数量">
-    <button type="submit">立即下单</button>
-</form>`
-        }],
-        vue: [{
-          id: 'c1',
-          filename: 'App.vue',
-          code: `<template>
-  <form @submit.prevent="onSubmit">
-    <input v-model="form.name" placeholder="收货人">
-    <input v-model="form.address" placeholder="收货地址">
-    <input v-model="form.count" type="number" placeholder="购买数量">
-    <button type="submit">立即下单</button>
-  </form>
-</template>
-
-<script setup>
-import { ref } from 'vue'
-const form = ref({ name: '', address: '', count: 1 })
-const onSubmit = () => console.log(form.value)
-</script>`
-        }]
-      }
-    }] },
+      points: [kpCheckoutForm] 
+    },
     { 
       id: 'ch-layout', 
-      title: '布局容器',
+      title: '布局',
       video: {
-        html: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+        vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
       },
-      points: [{
-      id: 'kp-layout',
-      title: 'div和span',
-      blocks: [{ id: 'b1', type: 'text', content: 'div是块级容器，span是行内容器，用于组织页面结构。' }],
-      codeImpl: {
-        html: [{
-          id: 'c1',
-          filename: 'index.html',
-          code: `<div class="product">
-    <h1>iPhone 15 Pro</h1>
-    <p>价格：<span class="price">￥9999</span></p>
-</div>`
-        }],
-        vue: [{
-          id: 'c1',
-          filename: 'App.vue',
-          code: `<template>
-  <div class="product">
-    <h1>{{ product.name }}</h1>
-    <p>价格：<span class="price">{{ product.price }}</span></p>
-  </div>
-</template>
-
-<script setup>
-const product = { name: 'iPhone 15 Pro', price: '￥9999' }
-</script>`
-        }]
-      }
-    }] },
+      points: [kpFlexRow, kpFlexColumn, kpFlexAlign] 
+    },
     { 
       id: 'ch-style', 
       title: '样式',
       video: {
-        html: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        vue: 'https://www.w3schools.com/html/mov_bbb.mp4',
-        react: 'https://www.w3schools.com/html/mov_bbb.mp4'
+        vue: 'https://www.w3schools.com/html/mov_bbb.mp4'
       },
-      points: [kpStyle] 
+      points: [kpStyle, kpSelector] 
     }
   ]
 }
