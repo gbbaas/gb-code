@@ -9,9 +9,29 @@
     </header>
 
     <div class="main-container">
-      <!-- 左侧菜单 - 显示路线所有课程 -->
+      <!-- 左侧菜单 -->
       <aside class="sidebar" :class="{ show: showMenu }">
-        <div v-for="course in pathCourses" :key="course.id" class="course-menu">
+        <!-- 课程类型选择（当没有具体课程时） -->
+        <div v-if="!courseId" class="course-type-select">
+          <div class="type-title">选择课程类型</div>
+          <div 
+            class="type-item" 
+            :class="{ active: selectedType === 'java' }"
+            @click="selectCourseType('java')"
+          >
+            ☕ Java
+          </div>
+          <div 
+            class="type-item" 
+            :class="{ active: selectedType === 'frontend' }"
+            @click="selectCourseType('frontend')"
+          >
+            🌐 前端
+          </div>
+        </div>
+        
+        <!-- 课程列表（当选择了课程类型或有具体课程时） -->
+        <div v-else v-for="course in pathCourses" :key="course.id" class="course-menu">
           <div 
             class="course-title" 
             :class="{ active: course.id === courseId, expanded: expandedCourses.has(course.id) }"
@@ -37,7 +57,31 @@
 
       <!-- 右侧内容 -->
       <main class="content" @click="showMenu = false">
-        <template v-if="activeChapter">
+        <!-- 课程类型选择页面 -->
+        <div v-if="!courseId" class="course-type-page">
+          <h1>选择课程类型</h1>
+          <div class="type-cards">
+            <div class="type-card" @click="selectCourseType('java')">
+              <div class="type-icon">☕</div>
+              <div class="type-info">
+                <h2>Java课程</h2>
+                <p>系统学习Java核心语法、面向对象、集合框架</p>
+                <div class="type-courses">{{ javaCoursesCount }} 门课程</div>
+              </div>
+            </div>
+            <div class="type-card" @click="selectCourseType('frontend')">
+              <div class="type-icon">🌐</div>
+              <div class="type-info">
+                <h2>前端课程</h2>
+                <p>HTML/CSS/JS，前端开发基础</p>
+                <div class="type-courses">{{ frontendCoursesCount }} 门课程</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 课程内容页面 -->
+        <template v-else-if="activeChapter">
           <!-- 章节标题+视频 -->
           <div class="chapter-header">
             <h1>{{ activeChapter.title }}</h1>
@@ -193,7 +237,7 @@
           </div>
         </template>
         
-        <div v-else class="empty">请从左侧选择章节</div>
+        <div v-else-if="courseId" class="empty">请从左侧选择章节</div>
       </main>
 
       <!-- 右侧悬浮导航 -->
@@ -225,15 +269,20 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getCourse, getPathCourses } from '@/mock/courseData'
-import type { Chapter } from '@/types/course'
+import type { Chapter, Course } from '@/types/course'
 
 const route = useRoute()
 const router = useRouter()
 
 const courseId = computed(() => route.params.language as string)
-const currentCourse = computed(() => getCourse(courseId.value))
-const pathCourses = computed(() => currentCourse.value ? getPathCourses(currentCourse.value.pathId) : [])
+const currentCourse = ref<Course | null>(null)
+const pathCourses = ref<Course[]>([])
+const loading = ref(false)
+
+// 新增：课程类型选择相关
+const selectedType = ref('java')
+const javaCoursesCount = ref(0)
+const frontendCoursesCount = ref(0)
 
 const expandedCourses = ref<Set<string>>(new Set())
 const activeChapter = ref<Chapter | null>(null)
@@ -242,6 +291,64 @@ const videoUrl = ref('')
 const videoPlayer = ref<HTMLVideoElement | null>(null)
 const copiedId = ref('')
 
+// 加载课程数据
+async function loadData() {
+  if (!courseId.value) return
+  
+  loading.value = true
+  try {
+    const id = courseId.value
+    let course: Course | undefined
+    let courses: Course[] = []
+    
+    // 根据courseId前缀判断加载哪个数据文件
+    if (id.startsWith('java')) {
+      const { javaCourses } = await import('@/mock/java.ts')
+      courses = javaCourses
+      course = javaCourses.find(c => c.id === id)
+    } else if (id.startsWith('frontend')) {
+      const { frontendCourses } = await import('@/mock/front.ts')
+      courses = frontendCourses
+      course = frontendCourses.find(c => c.id === id)
+    } else {
+      // 默认加载Java课程
+      const { javaCourses } = await import('@/mock/java.ts')
+      courses = javaCourses
+      course = javaCourses.find(c => c.id === id)
+    }
+    
+    currentCourse.value = course || null
+    pathCourses.value = courses
+    
+    init()
+  } catch (error) {
+    console.error('Error loading course data:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 加载课程数量
+async function loadCoursesCount() {
+  try {
+    const id = courseId.value
+    
+    // 根据courseId前缀判断加载哪个课程数量
+    if (id.startsWith('java')) {
+      const { javaCourses } = await import('@/mock/java.ts')
+      javaCoursesCount.value = javaCourses.length
+      frontendCoursesCount.value = 0
+    } else if (id.startsWith('frontend')) {
+      const { frontendCourses } = await import('@/mock/front.ts')
+      frontendCoursesCount.value = frontendCourses.length
+      javaCoursesCount.value = 0
+    }
+  } catch (e) {
+    console.error('Error loading courses count:', e)
+  }
+}
+
+// 初始化
 function init() {
   if (currentCourse.value) {
     // 确保当前课程在左侧展开（清除其他，只保留当前）
@@ -255,12 +362,31 @@ function init() {
   }
 }
 
-onMounted(init)
-watch(courseId, () => {
-  activeChapter.value = null
-  init()
+// 选择课程类型
+function selectCourseType(type: string) {
+  selectedType.value = type
+  
+  // 根据类型跳转到对应课程列表的第一个课程
+  if (type === 'java') {
+    router.push('/learn/java-basic')
+  } else if (type === 'frontend') {
+    router.push('/learn/frontend-basic')
+  }
+}
+
+// 生命周期
+onMounted(async () => {
+  await loadCoursesCount()
+  await loadData()
 })
 
+// 监听课程ID变化
+watch(courseId, async () => {
+  activeChapter.value = null
+  await loadData()
+})
+
+// 切换课程展开/收起
 function toggleCourse(course: any) {
   // 如果是交互式页面课程，直接跳转
   if (course.interactivePage) {
@@ -277,6 +403,7 @@ function toggleCourse(course: any) {
   }
 }
 
+// 选择章节
 function selectChapter(cid: string, chapter: Chapter) {
   if (cid !== courseId.value) {
     router.push(`/learn/${cid}`)
@@ -286,6 +413,7 @@ function selectChapter(cid: string, chapter: Chapter) {
   window.scrollTo({ top: 0, behavior: 'instant' })
 }
 
+// 播放视频
 async function playVideo(url: string) {
   videoUrl.value = url
   await nextTick()
@@ -304,6 +432,7 @@ async function playVideo(url: string) {
   }
 }
 
+// 复制代码
 function copy(text: string, id: string) {
   navigator.clipboard.writeText(text)
   copiedId.value = id
@@ -312,6 +441,7 @@ function copy(text: string, id: string) {
   }, 2000)
 }
 
+// 导航
 function goHome() {
   router.push('/')
 }
@@ -368,6 +498,40 @@ function scrollToElement(id: string) {
   overflow-y: auto;
   flex-shrink: 0;
 }
+
+/* 课程类型选择 */
+.course-type-select {
+  padding: 12px;
+}
+.type-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.type-item {
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #333;
+  transition: all 0.2s;
+  border: 1px solid #e5e5e5;
+}
+.type-item:hover {
+  background: #f5f5f5;
+  border-color: #4A90D9;
+}
+.type-item.active {
+  background: #4A90D9;
+  color: #fff;
+  border-color: #4A90D9;
+}
+
+/* 课程菜单 */
 .course-title {
   display: flex;
   justify-content: space-between;
@@ -395,9 +559,69 @@ function scrollToElement(id: string) {
 .chapter-item:hover { background: #f0f0f0; color: #333; }
 .chapter-item.active { background: #e8f4ff; color: #4A90D9; border-left-color: #4A90D9; }
 
-/* 内容区 - 无边距 */
+/* 内容区 */
 .content { flex: 1; padding: 20px 110px 20px 24px; min-width: 0; }
 
+/* 课程类型选择页面 */
+.course-type-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+.course-type-page h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+.type-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+.type-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+.type-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  border-color: #4A90D9;
+}
+.type-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.type-info h2 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.type-info p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.type-courses {
+  text-align: center;
+  font-size: 13px;
+  color: #4A90D9;
+  font-weight: 500;
+  padding: 8px 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* 章节头部 */
 .chapter-header {
   display: flex;
   align-items: center;
@@ -709,6 +933,22 @@ function scrollToElement(id: string) {
   .sidebar.show { transform: translateX(0); }
   .content { padding: 16px; }
   .chapter-header h1 { font-size: 18px; }
+  
+  /* 移动端课程类型页面 */
+  .course-type-page {
+    padding: 20px 16px;
+  }
+  .course-type-page h1 {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  .type-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .type-card {
+    padding: 20px;
+  }
   
   /* 移动端隐藏导航 */
   .quick-nav { display: none; }
